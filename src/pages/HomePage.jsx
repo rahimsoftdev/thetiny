@@ -1,4 +1,5 @@
 import Banner from '../components/Banner';
+import PopularLinks from '../components/Popularlinks';
 import Stats from '../components/Stats';
 
 const HomePage = () => {
@@ -6,6 +7,7 @@ const HomePage = () => {
         <div className=''>
             <Banner/>
             <Stats/>
+            <PopularLinks/>
         </div>
     );
 };
