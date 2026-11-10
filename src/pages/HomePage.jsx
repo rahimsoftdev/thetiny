@@ -1,10 +1,9 @@
-import React from 'react';
+import Banner from '../components/Banner';
 
 const HomePage = () => {
     return (
-        <div className='min-h-screen'>
-            <h1>this is home page
-            </h1>
+        <div className=''>
+            <Banner/>
         </div>
     );
 };
