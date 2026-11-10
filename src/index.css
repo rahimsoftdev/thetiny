@@ -4,6 +4,7 @@
 
 @theme {
   --color-primary: #5B21F3;
+  --color-subtext:#6b7280;
   --font-inter: "Inter", sans-serif;
   --container-main:1300px;
 }
