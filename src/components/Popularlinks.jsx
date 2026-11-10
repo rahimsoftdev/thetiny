@@ -1,4 +1,4 @@
-import LinkCard from "./LinkCard";
+import LinkCard from "./Linkcard";
 
 const popularLinks = [
   {

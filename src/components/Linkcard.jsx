@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiCopy, FiCheck } from "react-icons/fi";
 import { TbClick } from "react-icons/tb";
 import { BsQrCode } from "react-icons/bs";
-import QrModal from "./ui/QrModal";
+import QrModal from "./ui/Qrmodal";
 
 const LinkCard = ({ shortUrl, originalUrl, clicks }) => {
   const [clickCount, setClickCount] = useState(clicks);

@@ -1,4 +1,7 @@
-import PricingCard from "./ui/PricingCard";
+// import PricingCard from "./ui/PricingCard";
+
+// import PricingCard from "./ui/PricingCard";
+import PricingCard from "./ui/Pricingcard";
 
 const plans = [
   {
