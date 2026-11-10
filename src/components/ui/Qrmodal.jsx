@@ -1,11 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiDownload } from "react-icons/fi";
 import { BsQrCode } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 
 const QrModal = ({ isOpen, onClose, url, qrImage, fileName = "qr-code.png" }) => {
-  // Lock body scroll + close on Escape while modal is open
+  const [show, setShow] = useState(false);
+
+  // Lock body scroll, close on Escape, and run the open animation
   useEffect(() => {
     if (!isOpen) return;
 
@@ -15,10 +17,13 @@ const QrModal = ({ isOpen, onClose, url, qrImage, fileName = "qr-code.png" }) =>
 
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
+    const frame = requestAnimationFrame(() => setShow(true));
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", onKeyDown);
+      cancelAnimationFrame(frame);
+      setShow(false);
     };
   }, [isOpen, onClose]);
 
@@ -45,36 +50,45 @@ const QrModal = ({ isOpen, onClose, url, qrImage, fileName = "qr-code.png" }) =>
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
+      className={`fixed inset-0 z-[100] flex items-end justify-center bg-black/40 backdrop-blur-sm transition-opacity duration-300 sm:items-center sm:p-4 ${
+        show ? "opacity-100" : "opacity-0"
+      }`}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
     >
-      {/* Scrollbar is hidden (still scrollable on very small screens) */}
+      {/* Mobile: slides up from the bottom | Tablet+: centered */}
       <div
-        className="relative max-h-[95vh] w-full max-w-[520px] overflow-y-auto rounded-3xl bg-white px-5 py-6 text-center shadow-2xl [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 sm:py-8"
+        className={`relative max-h-[90vh] w-full max-w-full overflow-y-auto rounded-t-3xl bg-white px-5 pb-6 pt-3 text-center shadow-2xl transition-all duration-300 ease-out [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:max-w-[400px] sm:rounded-3xl sm:px-6 sm:py-6 ${
+          show
+            ? "translate-y-0 opacity-100"
+            : "translate-y-full opacity-0 sm:translate-y-4"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Drag handle (mobile only) */}
+        <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-gray-300 sm:hidden" />
+
         {/* Close */}
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 cursor-pointer text-2xl text-subtext transition-colors duration-300 hover:text-gray-900 sm:right-5 sm:top-5"
+          className="absolute right-4 top-4 cursor-pointer text-xl text-subtext transition-colors duration-300 hover:text-gray-900 sm:right-4 sm:top-4"
         >
           <IoClose />
         </button>
 
         {/* Icon */}
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 sm:h-16 sm:w-16">
-          <BsQrCode className="text-2xl text-primary" />
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100 sm:h-14 sm:w-14 sm:rounded-2xl">
+          <BsQrCode className="text-xl text-primary sm:text-2xl" />
         </div>
 
-        <h3 className="mt-4 text-xl font-bold text-gray-900 sm:text-2xl">
+        <h3 className="mt-3 text-lg font-bold text-gray-900 sm:text-xl">
           QR Code
         </h3>
 
-        <p className="mt-3 break-all text-sm leading-6 text-subtext sm:text-base">
+        <p className="mt-2 break-all text-xs leading-5 text-subtext sm:text-sm sm:leading-6">
           {url}
         </p>
 
@@ -82,16 +96,16 @@ const QrModal = ({ isOpen, onClose, url, qrImage, fileName = "qr-code.png" }) =>
         <img
           src={qrImage}
           alt="QR Code"
-          className="mx-auto mt-5 w-full max-w-[260px] sm:max-w-[300px]"
+          className="mx-auto mt-4 w-full max-w-[150px] sm:max-w-[180px]"
         />
 
         {/* Download */}
         <button
           type="button"
           onClick={handleDownload}
-          className="mt-6 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 ease-in-out hover:opacity-90 sm:text-base"
+          className="mt-5 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 ease-in-out hover:opacity-90"
         >
-          <FiDownload className="text-lg" />
+          <FiDownload className="text-base" />
           Download QR Code
         </button>
       </div>

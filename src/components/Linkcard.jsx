@@ -28,7 +28,7 @@ const LinkCard = ({ shortUrl, originalUrl, clicks }) => {
       document.body.removeChild(input);
     }
 
-    setClickCount(clickCount + 1);
+    setClickCount((prevCount) => prevCount + 1);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
