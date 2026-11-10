@@ -63,10 +63,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full border-t border-black bg-white">
+    <footer className="w-full  bg-white">
       <div className="mx-auto max-w-main px-4 lg:px-10">
         {/* Top section */}
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-12 pt-12 lg:grid-cols-[2fr_1fr_1fr] lg:gap-x-10 lg:pt-14">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 pb-12 pt-12 lg:grid-cols-[2fr_1fr_1fr] lg:gap-x-10 lg:pt-16">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
             <a href="/" onClick={goHome} className="inline-block">

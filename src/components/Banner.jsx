@@ -46,7 +46,7 @@ const Banner = () => {
               type="button"
               className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-primary bg-primary px-6 py-2 text-sm font-semibold text-white transition-all duration-300 ease-in-out hover:opacity-90 sm:w-auto sm:px-8 sm:text-base"
             >
-              <FiLock className="text-base sm:text-lg" />
+              <FiLock className="text-base " />
               Login to Make URL
             </button>
 

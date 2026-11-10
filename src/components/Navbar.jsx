@@ -51,7 +51,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="TheTiny.Site"
-            className="h-14 w-auto "
+            className="h-14 w-auto  lg:-ml-4"
           />
         </a>
 
